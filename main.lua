@@ -123,7 +123,7 @@ createBee()
 
 function updateBees()
     for beeIndex = 1, #bees do
-        bee:draw(bees[beeIndex])
+        bee:draw(display,bees[beeIndex])
     end
 end
 
