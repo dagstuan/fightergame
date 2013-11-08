@@ -7,6 +7,12 @@
 -- Your code here
 -- Require the widget library
 local widget = require( "widget" )
+local Bee = require("bee")
+
+local beez = nil
+
+local bee = Bee.new()
+bee.getNextFrame()
 
 display.setStatusBar( display.HiddenStatusBar )
 
@@ -68,6 +74,15 @@ function touch( event )
 end
 
 Runtime:addEventListener( "touch", touch )
+
+function addBeez()
+	
+end
+
+
+timer.performWithDelay(1000,addBeez,5)
+
+
 
 
 ------------------------------------------------------------
