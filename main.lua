@@ -116,7 +116,7 @@ function createBee()
     bees[#bees+1] = bee.Create(display)
 end
 
-timer.performWithDelay(1000, createBee, 0)
+timer.performWithDelay(2000, createBee, 0)
 
 function updateBees()
     for i,bee in ipairs(bees) do
