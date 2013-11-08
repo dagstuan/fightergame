@@ -131,7 +131,7 @@ local livesLeft = 3
 
 function updateGameState()
     for i,bee in ipairs(bees) do
-        if (bee.y <= mouse.y + mouseRadius and bee.y >= mouse.y -mouseRadius and bee.x <= mouse.x + mouseRadius and bee.x >= mouse.x - mouseRadius) then
+        if (bee.image.y <= mouse.y + mouseRadius and bee.image.y >= mouse.y - mouseRadius and bee.image.x <= mouse.x + mouseRadius and bee.image.x >= mouse.x - mouseRadius) then
             livesLeft = livesLeft - 1
         end
     end

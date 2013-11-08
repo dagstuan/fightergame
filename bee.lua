@@ -21,8 +21,7 @@ function bee.Create(display)
   end
   
   self.changeImage = function()
-	self.image:nextFrame()
-    
+      self.image:nextFrame()
   end
   
   return self 
