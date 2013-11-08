@@ -63,11 +63,11 @@ function updateBackgrounds()
 end
 
 ------------------------------------------------------------
--- Launch boulder
-local boulder = display.newImage( "boulder.png" )
-boulder.x = display.contentWidth /2
-boulder.y = display.contentHeight - boulder.height / 2
-game:insert( boulder )
+-- Add mouse
+local mouse = display.newImage( "boulder.png" )
+mouse.x = display.contentWidth /2
+mouse.y = display.contentHeight - mouse.height / 2
+game:insert( mouse )
 
 ------------------------------------------------------------
 -- Move the thing
@@ -78,12 +78,12 @@ local event = null
 function holdingEvent()
     if (pressed) then
         if (left) then
-            if (boulder.x < display.contentWidth - boulder.width / 2) then
-                boulder.x = boulder.x + 15
+            if (mouse.x < display.contentWidth - mouse.width / 2) then
+                mouse.x = mouse.x + 15
             end
         else
-            if (boulder.x > boulder.width / 2) then
-                boulder.x = boulder.x - 15
+            if (mouse.x > mouse.width / 2) then
+                mouse.x = mouse.x - 15
             end
         end
     end
@@ -108,7 +108,7 @@ end
 Runtime:addEventListener( "touch", touch )
 
 ------------------------------------------------------------
--- Game state
+-- Bees
 
 local bees = {}
 
@@ -116,7 +116,7 @@ function createBee()
     bees[#bees+1] = bee.Create(display)
 end
 
-timer.performWithDelay(2000, createBee, 0)
+local beeTimer = timer.performWithDelay(2000, createBee, 0)
 
 function updateBees()
     for i,bee in ipairs(bees) do
@@ -124,9 +124,33 @@ function updateBees()
     end
 end
 
+------------------------------------------------------------
+-- Game state
+local mouseRadius = 50
+local livesLeft = 3
+
+function updateGameState()
+    for i,bee in ipairs(bees) do
+        if (bee.y <= mouse.y + mouseRadius and bee.y >= mouse.y -mouseRadius and bee.x <= mouse.x + mouseRadius and bee.x >= mouse.x - mouseRadius) then
+            livesLeft = livesLeft - 1
+        end
+    end
+    
+    if (livesLeft == 0) then 
+        Runtime:removeEventListener( "touch", touch )
+        Runtime:removeEventListener("enterFrame", updateGame)
+        
+        timer.cancel(beeTimer)
+        
+        displayLoose = display.newText("YOU LOSE", 25, 150, "Helvetica", 50 )
+    end
+end
+
+
 function updateGame()
     updateBackgrounds()
     updateBees()
+    updateGameState()
 end
 
 Runtime:addEventListener("enterFrame", updateGame)
