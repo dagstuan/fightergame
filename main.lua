@@ -7,7 +7,6 @@
 -- Your code here
 -- Require the widget library
 local widget = require( "widget" )
-
 require("bee")
 
 display.setStatusBar( display.HiddenStatusBar )
@@ -111,19 +110,17 @@ Runtime:addEventListener( "touch", touch )
 ------------------------------------------------------------
 -- Game state
 
-
 local bees = {}
 
 function createBee()
-   local b = bee:new(display)
-   table.insert(bees, b)
+    bees[#bees+1] = bee.Create(display)
 end
 
-createBee()
+timer.performWithDelay(1000, createBee, 0)
 
 function updateBees()
-    for beeIndex = 1, #bees do
-        bee:draw(display,bees[beeIndex])
+    for i,bee in ipairs(bees) do
+        bee.Draw()
     end
 end
 
