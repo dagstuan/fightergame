@@ -122,9 +122,26 @@ timer.performWithDelay(1000,addBeez,5)
 
 ------------------------------------------------------------
 -- Game state
+require("bee")
+
+local bees = {}
+
+function createBee()
+   local b = bee:new(display)
+   table.insert(bees, b)
+end
+
+createBee()
+
+function updateBees()
+    for beeIndex = 1, #bees do
+        bee:draw(bees[beeIndex])
+    end
+end
 
 function updateGame()
     updateBackgrounds()
+    updateBees()
 end
 
 Runtime:addEventListener("enterFrame", updateGame)
