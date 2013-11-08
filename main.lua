@@ -7,12 +7,8 @@
 -- Your code here
 -- Require the widget library
 local widget = require( "widget" )
-local Bee = require("bee")
 
-local beez = nil
-
-local bee = Bee.new()
-bee.getNextFrame()
+require("bee")
 
 display.setStatusBar( display.HiddenStatusBar )
 
@@ -112,17 +108,9 @@ end
 
 Runtime:addEventListener( "touch", touch )
 
-
-function addBeez()
-	
-end
-
-
-timer.performWithDelay(1000,addBeez,5)
-
 ------------------------------------------------------------
 -- Game state
-require("bee")
+
 
 local bees = {}
 
