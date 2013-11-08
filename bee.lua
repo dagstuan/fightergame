@@ -16,12 +16,37 @@ function bee.Create(display)
   self.count = 0
     
   self.Draw = function()
-      self.changeImage()
-      self.image.y = self.image.y + self.speed
+      if (self.image ~= nil) then
+          self.changeImage()
+          self.image.y = self.image.y + self.speed
+      end
   end
   
   self.changeImage = function()
       self.image:nextFrame()
+  end
+  
+  self.getX = function()
+      if (self.image ~= nil) then
+          return self.image.x
+      else
+          return -100000
+      end
+  end
+    
+  self.getY = function()
+      if (self.image ~= nil) then
+          return self.image.y
+      else
+          return -100000
+      end
+  end
+  
+  self.removeSelf = function()
+      if (self.image ~= nil) then
+          self.image:removeSelf()
+          self.image = nil
+      end
   end
   
   return self 
