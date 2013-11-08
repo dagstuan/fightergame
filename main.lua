@@ -65,7 +65,8 @@ end
 
 ------------------------------------------------------------
 -- Add mouse
-local mouse = display.newImage( "boulder.png" )
+local mouseObj = mouse.Create(display)
+local mouse = mouseObj.image
 mouse.x = display.contentWidth /2
 mouse.y = display.contentHeight - mouse.height / 2
 game:insert( mouse )
@@ -78,15 +79,7 @@ local event = null
 
 function holdingEvent()
     if (pressed) then
-        if (left) then
-            if (mouse.x < display.contentWidth - mouse.width / 2) then
-                mouse.x = mouse.x + 15
-            end
-        else
-            if (mouse.x > mouse.width / 2) then
-                mouse.x = mouse.x - 15
-            end
-        end
+        mouseObj.Move(left)
     end
 end
 

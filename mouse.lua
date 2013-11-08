@@ -13,13 +13,25 @@ function mouse.Create(display)
   self.image.x = math.random(self.image.width,display.contentWidth-(self.image.width/2))
   
   self.image.x = display.contentWidth /2
-  self.image.y = display.contentHeight - boulder.height / 2
-  
+  self.image.y = display.contentHeight - self.image.height / 2
+  self.display = display
   self.count = 0
     
-  self.Draw = function(x)
-      self.changeImage()
-      self.image.x = x
+  self.Move = function(left)
+  	local img = self.image
+  	if (left) then
+  			self.image.xScale = 1
+            if (img.x < self.display.contentWidth - img.width / 2) then
+                img.x = img.x + 15
+                
+            end
+        else
+        	self.image.xScale = -1
+            if (img.x > img.width / 2) then
+                img.x = img.x - 15
+            end
+        end
+        self.changeImage()
   end
   
   self.changeImage = function()
