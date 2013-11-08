@@ -8,6 +8,7 @@
 -- Require the widget library
 local widget = require( "widget" )
 require("bee")
+require("mouse")
 
 display.setStatusBar( display.HiddenStatusBar )
 
