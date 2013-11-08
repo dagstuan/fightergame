@@ -1,27 +1,30 @@
 require "movieclip"
 
-bee = {
+mouse = {
   image = nil, -- see note below
   name = nil
 }
 
-function bee.Create(display)
+function mouse.Create(display)
   -- first make a copy of the master object
   local self = {}
   -- then set fields
-  self.image = movieclip.newAnim{"images/bee_1.png", "images/bee_2.png" , "images/bee_3.png"}
+  self.image = movieclip.newAnim{"images/mouse_1.png", "images/mouse_2.png"}
   self.image.x = math.random(self.image.width,display.contentWidth-(self.image.width/2))
   
-  self.speed = math.random(2,5)
+  self.image.x = display.contentWidth /2
+  self.image.y = display.contentHeight - boulder.height / 2
+  
   self.count = 0
     
-  self.Draw = function()
+  self.Draw = function(x)
       self.changeImage()
-      self.image.y = self.image.y + self.speed
+      self.image.x = x
   end
   
   self.changeImage = function()
-      self.image:nextFrame()
+	self.image:nextFrame()
+    
   end
   
   return self 
