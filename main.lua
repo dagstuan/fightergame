@@ -10,19 +10,56 @@ local widget = require( "widget" )
 
 display.setStatusBar( display.HiddenStatusBar )
 
+local skies = display.newGroup()
 
 -- Create master display group (for global "camera" scrolling effect)
 local game = display.newGroup();
 game.x = 0
 
+------------------------------------------------------------
+-- backgrounds
+
+local function loadBackground(filename, xMulti, y, speed) 
+	local background = display.newImage(filename)
+	background:setReferencePoint( display.BottomLeftReferencePoint )
+	background.x, background.y = display.contentWidth*xMulti, y
+	background.speed = speed
+	return background
+end
+
 local sky = display.newImage( "sky.png", true )
-game:insert( sky )
+skies:insert( sky )
 sky.x = 120; sky.y = 200
+
+local background1 = loadBackground("background.png", 1, 75, 0.5)
+skies:insert( background1 )
+local background1_2 = loadBackground("background.png", 2, 75, 0.5)
+skies:insert( background1_2 )
+local background3 = loadBackground("background3.png", -2, 150, -1)
+skies:insert( background3 )
+local background3_2 = loadBackground("background3.png", -1, 150, -1)
+skies:insert( background3_2 )
+
 
 local grass = display.newImage( "grass.png", true )
 game:insert( grass )
 grass.x = 160
 grass.y = 500
+
+
+local function updateBackground(background)
+	background.x = background.x - background.speed*0.5
+	if(background.x < -display.contentWidth) then
+		background.x = display.contentWidth
+	end
+end
+
+function updateBackgrounds()
+	updateBackground(background1)
+	updateBackground(background1_2)
+	updateBackground(background3)
+	updateBackground(background3_2)
+end
 
 ------------------------------------------------------------
 -- Launch boulder
@@ -32,7 +69,7 @@ boulder.y = display.contentHeight - boulder.height / 2
 game:insert( boulder )
 
 ------------------------------------------------------------
--- Move the ship
+-- Move the thing
 local holding = false
 local left = false
 local event = null
@@ -69,10 +106,11 @@ end
 
 Runtime:addEventListener( "touch", touch )
 
-
 ------------------------------------------------------------
--- Left button
+-- Game state
 
+function updateGame()
+    updateBackgrounds()
+end
 
-------------------------------------------------------------
--- Right button
+Runtime:addEventListener("enterFrame", updateGame)
