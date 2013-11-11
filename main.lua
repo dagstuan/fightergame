@@ -125,9 +125,9 @@ local livesLeft = 3
 
 function updateGameState()
     for i,bee in ipairs(bees) do
-        if (bee.getY() <= mouse.y + mouseRadius and bee.getY() >= mouse.y - mouseRadius and bee.getX() <= mouse.x + mouseRadius and bee.getX() >= mouse.x - mouseRadius) then
+        if (bee.dead == false and bee.getY() <= mouse.y + mouseRadius and bee.getY() >= mouse.y - mouseRadius and bee.getX() <= mouse.x + mouseRadius and bee.getX() >= mouse.x - mouseRadius) then
             livesLeft = livesLeft - 1
-            bee.removeSelf()
+            --bee.dead = true
         end
     end
     
